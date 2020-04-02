@@ -36,7 +36,7 @@ public class TextEditor {
                 response = inFromServer.readLine();
 
                 System.out.println("FROM SERVER: " + response);
-                if (response.equals("OK"))
+                if (response.equals("OK "))
                     isAuthenticated = true;
                 else{
                     System.out.println("Try again.\n");
