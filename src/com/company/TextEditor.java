@@ -85,7 +85,7 @@ public class TextEditor {
                         updatedText = updatedText + System.lineSeparator() + responseRest;
                     }
                     textFile = updatedText;
-                    System.out.println("FROM SERVER: " + updatedText);
+                    System.out.println("FROM SERVER: " + textFile);
                 }
                 else{
                     System.out.println("FROM SERVER: " + response);
