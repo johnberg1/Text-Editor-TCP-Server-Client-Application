@@ -18,6 +18,9 @@ public class TextEditor {
         boolean isAuthenticated = false;
         BufferedReader inFromServer = null;
         DataOutputStream outToServer = null;
+        String updatedText = "";
+        String responseRest = "";
+        String textFile = "";
         try {
             clientSocket = new Socket("127.0.0.1", 60000);
 
@@ -68,19 +71,27 @@ public class TextEditor {
                 printMenu();
                 outToServer.writeBytes(commandToSend);
                 outToServer.flush();
-
                 response = inFromServer.readLine();
-
-                System.out.println("FROM SERVER: " + response);
-
                 String[] respDivided = response.split(" ");
+
                 if (update && respDivided[0].equals("OK")){
+                    updatedText = "";
+                    updatedText += respDivided[2];
                     currentVersion = respDivided[1];
                     update = false;
+                    while(inFromServer.ready()){
+                        responseRest = inFromServer.readLine();
+                        //while((responseRest = inFromServer.readLine()) != null){
+                        updatedText = updatedText + System.lineSeparator() + responseRest;
+                    }
+                    textFile = updatedText;
+                    System.out.println("FROM SERVER: " + updatedText);
+                }
+                else{
+                    System.out.println("FROM SERVER: " + response);
                 }
                 if (exit)
                     isAuthenticated = false;
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
